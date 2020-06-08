@@ -1,0 +1,30 @@
+---
+driver:
+  name: dokken
+  chef_version: latest
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+  log_level: debug
+
+platforms:
+  - name: ubuntu-18.04
+    driver:
+      image: dokken/ubuntu-18.04
+
+verifier:
+  name: inspec
+
+suites:
+  - name: default
+    provisioner:
+      log_level: debug
+      policyfile_path: Policyfile.rb
+      named_run_list: test_fixture_cookbook
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
